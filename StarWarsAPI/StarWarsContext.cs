@@ -14,6 +14,10 @@ namespace StarWarsAPI
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Planet>().HasKey(p => p.Name);
+
+            modelBuilder.Entity<Planet>().Property(p => p.Name).
+                IsRequired()
+                .HasMaxLength(100);
         }
     }
 }

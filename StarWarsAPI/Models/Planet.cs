@@ -8,14 +8,16 @@ namespace StarWarsAPI.Models
     public class Planet
     {
         [Key]
+        [Required]
+        [MaxLength(100)]
         [JsonPropertyName("name")]
-        public string Name { get; set;}
+        public string Name { get; set;} = default!;
         [JsonPropertyName("diameter")]
         public string Diameter { get; set; }
         [JsonPropertyName("rotation_period")]
-        public string Rotation_period { get; set; }
+        public string RotationPeriod { get; set; }
         [JsonPropertyName("orbital_period")]
-        public string Orbital_period { get; set; }
+        public string OrbitalPeriod { get; set; }
         [JsonPropertyName("gravity")]
         public string Gravity { get; set; }
         [JsonPropertyName("population")]
@@ -25,7 +27,7 @@ namespace StarWarsAPI.Models
         [JsonPropertyName("terrain")]
         public string Terrain { get; set; }
         [JsonPropertyName("surface_water")]
-        public string Surface_water { get; set; }
+        public string SurfaceWater { get; set; }
         [JsonPropertyName("residents")]
         [NotMapped] // not sure how to handle in in-memory database
         public string[] Residents { get; set; }
@@ -42,8 +44,22 @@ namespace StarWarsAPI.Models
         public static Planet FromJson(string json) => JsonSerializer.Deserialize<Planet>(json);
 
         public static string ToJson(Planet self) => JsonSerializer.Serialize(self);
-
-        public Planet() { }
+        public Planet() 
+        {
+            Diameter = "unknown";
+            RotationPeriod = "unknown";
+            OrbitalPeriod = "unknown";
+            Gravity = "unknown";
+            Population = "unknown";
+            Climate = "unknown";
+            Terrain = "unknown";
+            SurfaceWater = "unknown";
+            Residents = new string[] {};
+            Films = new string[] {};
+            Created = DateTime.Now.ToString();
+            Edited = DateTime.Now.ToString();
+            Url = "unknown";
+        }
 
         public Planet(
             string name, 
@@ -63,13 +79,13 @@ namespace StarWarsAPI.Models
         {
             Name = name;
             Diameter = diameter;
-            Rotation_period = rotationPeriod;
-            Orbital_period = orbitalPeriod;
+            RotationPeriod = rotationPeriod;
+            OrbitalPeriod = orbitalPeriod;
             Gravity = gravity;
             Population = population;
             Climate = climate;
             Terrain = terrain;
-            Surface_water = surfaceWater;
+            SurfaceWater = surfaceWater;
             Residents = residents;
             Films = films;
             Created = created;
